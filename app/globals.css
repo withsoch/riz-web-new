@@ -68,6 +68,23 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--ink);
+
+  /* The blog design spec's roles, mapped onto this site's palette, so the
+     card and hero markup can use its class names unchanged: brand, ink,
+     slate, muted, mist, peach, line. Only the values are ours. */
+  --color-brand: var(--coral);
+  --color-brand-dark: var(--coral-d);
+  --color-ink: var(--ink);
+  --color-slate: var(--body);
+  --color-muted: var(--muted);
+  --color-mist: var(--paper);
+  --color-cream: var(--cream);
+  --color-peach: var(--peach);
+  --color-line: var(--line);
+
+  /* Cards are flat at rest; this only ever appears on hover, and on the
+     post hero image, which is a static visual rather than a card. */
+  --shadow-card: 0 6px 22px -12px rgba(20, 30, 25, 0.18);
 }
 
 /* The type scale, as Tailwind tokens — the name is the size, so `text-16` is
@@ -354,6 +371,74 @@ html {
     padding-left: 24px;
     padding-right: 24px;
   }
+}
+
+/* Type roles the blog spec asks for. The page-hero scale above them stays
+   clamp(2.4rem, 1.5rem + 3vw, 3.7rem), as on /guides and /case-studies; a
+   post's h1 deliberately drops to the h2 step rather than getting a size of
+   its own, so it carries the same weight as an h2 elsewhere. */
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.014em;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+
+.text-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 1.35rem + 1.1vw, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.013em;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Small grid card title. The element rules above are unlayered, so they beat
+   Tailwind's `text-16` utility on an h3; this class is unlayered too and
+   carries the card's own size. */
+.article-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: -0.006em;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+.article-card-meta {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* These two set a colour, and unlayered rules beat Tailwind's layered
+   `group-hover:text-brand`, so the card's hover recolour lives here too. */
+.group:hover .article-card-title,
+.group:hover .text-h3 {
+  color: var(--coral);
+}
+
+/* Category label: tinted background, brand text, never a solid brand fill. */
+.eyebrow {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: var(--peach);
+  color: var(--coral);
+  border-radius: var(--radius-chip);
+  padding: 6px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .btn-coral,

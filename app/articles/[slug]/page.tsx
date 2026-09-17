@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import AnimateIn from "@/components/AnimateIn";
+import { ArticleImage } from "@/components/ArticleCards";
 import { getAllArticles, getArticle, formatArticleDate } from "@/lib/articles";
 
 export function generateStaticParams() {
@@ -30,69 +32,54 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   return (
-    <section className="ap-detail">
-      <style>{`
-        .ap-detail {
-          padding: 112px 0;
-          background: #F5EFE0;
+    <>
+      {/* Split hero, per the blog post hero spec: text left, contained image
+          right, on a tinted band with a hairline handing off to the white
+          body below. The top padding clears the fixed navbar. */}
+      <section className="border-b border-line bg-mist">
+        <div className="max-w-site grid grid-cols-1 items-center gap-10 pt-28 pb-10 sm:pb-12 lg:grid-cols-2 lg:gap-14 lg:pt-32 lg:pb-14">
+          <AnimateIn>
+            <div className="flex max-w-2xl flex-col gap-4">
+              {article.category && <span className="eyebrow w-fit">{article.category}</span>}
+              {/* Deliberately the h2 scale: the post title carries the same
+                  weight as an h2 elsewhere on the site, not a size of its own. */}
+              <h1 className="text-h2">{article.title}</h1>
+              <div className="flex items-center gap-2 text-14 text-slate">
+                <span>{formatArticleDate(article.date)}</span>
+                <span aria-hidden="true">&middot;</span>
+                <span>{article.readingTime} min read</span>
+              </div>
+            </div>
+          </AnimateIn>
+
+          {article.image && (
+            <AnimateIn delay={100}>
+              {/* The hero image carries a resting shadow: it is a static
+                  visual, not an interactive card. */}
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-line shadow-card">
+                <ArticleImage
+                  src={article.image}
+                  alt={article.title}
+                  priority
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </AnimateIn>
+          )}
+        </div>
+      </section>
+
+      <section className="ap-body">
+        <style>{`
+        .ap-body {
+          padding: 72px 0 96px;
+          background: var(--bg);
         }
         .ap-wrap {
           max-width: 760px;
           margin: 0 auto;
           padding: 0 40px;
-        }
-        .ap-breadcrumb {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.875rem;
-          letter-spacing: 0.04em;
-          color: var(--muted);
-          margin-bottom: 1.25rem;
-        }
-        .ap-breadcrumb a {
-          color: var(--coral);
-          text-decoration: none;
-        }
-        .ap-pill {
-          display: inline-block;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.75rem;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          color: var(--coral);
-          background: var(--peach);
-          border-radius: var(--radius-chip);
-          padding: 4px 12px;
-          margin-bottom: 1rem;
-        }
-        .ap-title {
-          font-family: var(--font-fraunces), serif;
-          font-weight: 600;
-          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
-          line-height: 1.06;
-          letter-spacing: -0.014em;
-          color: var(--ink);
-          margin: 0 0 1.25rem;
-        }
-        .ap-meta {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 1rem;
-          color: var(--muted);
-          margin-bottom: 1.5rem;
-        }
-        .ap-dot { opacity: 0.5; }
-        .ap-hero {
-          width: 100%;
-          aspect-ratio: 16 / 9;
-          object-fit: cover;
-          border-radius: var(--radius-card);
-          border: 1px solid var(--line);
-          display: block;
-          margin-bottom: 2rem;
-        }
-        .ap-divider {
-          height: 1px;
-          background: var(--line);
-          margin-bottom: 2rem;
         }
         .ap-prose {
           font-size: 1.0625rem;
@@ -101,7 +88,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
         .ap-prose > p { margin: 0 0 1.35rem; }
         .ap-prose h2 {
-          font-family: var(--font-fraunces), serif;
+          font-family: var(--font-display);
           font-weight: 600;
           font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem);
           line-height: 1.2;
@@ -109,7 +96,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           margin: 2.75rem 0 1rem;
         }
         .ap-prose h3 {
-          font-family: var(--font-fraunces), serif;
+          font-family: var(--font-display);
           font-weight: 600;
           font-size: 1.25rem;
           color: var(--ink);
@@ -133,7 +120,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
            its image, so the credit keeps normal paragraph spacing. */
         .ap-prose p > em:only-child {
           display: block;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-mono);
           font-size: 0.875rem;
           font-style: normal;
           line-height: 1.5;
@@ -153,48 +140,44 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         .ap-prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.75rem; font-size: 0.95rem; }
         .ap-prose th, .ap-prose td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
         .ap-prose th { background: var(--cream); color: var(--ink); }
-        .ap-cta {
+        .ap-foot {
           margin-top: 3rem;
           padding-top: 2rem;
           border-top: 1px solid var(--line);
-          text-align: center;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1.25rem;
+        }
+        .ap-back {
+          font-family: var(--font-mono);
+          font-size: 0.875rem;
+          color: var(--coral);
+          text-decoration: none;
         }
         @media (max-width: 640px) {
-          .ap-detail { padding: 64px 0; }
+          .ap-body { padding: 56px 0 72px; }
           .ap-wrap { padding: 0 24px; }
+          .ap-foot { justify-content: flex-start; }
         }
       `}</style>
 
-      <div className="ap-wrap">
-        <div className="ap-breadcrumb">
-          <Link href="/articles">Articles</Link> <span className="ap-dot">/</span> {article.category || "Note"}
+        <div className="ap-wrap">
+          <div className="ap-prose">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
+          </div>
+
+          <div className="ap-foot">
+            <Link href="/articles" className="ap-back">
+              &larr; All articles
+            </Link>
+            <Link href="/booking" className="btn-coral">
+              Have a chat with me
+            </Link>
+          </div>
         </div>
-
-        {article.category && <span className="ap-pill">{article.category}</span>}
-
-        <h1 className="ap-title">{article.title}</h1>
-
-        <div className="ap-meta">
-          {formatArticleDate(article.date)} <span className="ap-dot">·</span> {article.readingTime} min read
-        </div>
-
-        {article.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className="ap-hero" src={article.image} alt={article.title} />
-        )}
-
-        <div className="ap-divider" />
-
-        <div className="ap-prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
-        </div>
-
-        <div className="ap-cta">
-          <Link href="/booking" className="btn-coral">
-            Have a chat with me
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
