@@ -104,23 +104,27 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           margin: 0 auto;
           padding: 0 40px;
         }
-        /* 240 rail + 56 gap + 768 article, the same three numbers the other
-           Soch blogs lay a post out on, plus this site's 40px gutters. */
+        /* 15rem rail + 3.5rem gap + 48rem article: the other Soch blogs' three
+           numbers, in their unit. This site is otherwise sized in pixels, so on
+           a browser whose default font size is not 16px their rail and type
+           grew while this one stayed put, which is what made it read smaller
+           side by side. At the default size these are the same 240 / 56 / 768. */
         .ap-wrap.has-toc {
-          max-width: 1144px;
+          max-width: 71.5rem;
         }
         @media (min-width: 1024px) {
           .ap-grid {
             display: grid;
-            grid-template-columns: minmax(0, 15rem) minmax(0, 768px);
-            gap: 56px;
+            grid-template-columns: minmax(0, 15rem) minmax(0, 48rem);
+            gap: 3.5rem;
             align-items: start;
           }
         }
         /* 18px / 1.75, the reading size his own pages and the other Soch blogs
-           use. It has to be set on the elements: globals styles p and li
-           directly at 16px, and a rule on the element beats an inherited size
-           from this wrapper. */
+           use, and fixed like theirs: on those sites only the column widths
+           follow the reader's font-size setting, not the type. It has to be set
+           on the elements: globals styles p and li directly at 16px, and a rule
+           on the element beats an inherited size from this wrapper. */
         .ap-prose {
           font-size: 18px;
           line-height: 1.75;
