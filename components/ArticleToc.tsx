@@ -22,6 +22,7 @@ export function ArticleToc({ headings }: { headings: Heading[] }) {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.16em;
+          line-height: 1.5;
           text-transform: uppercase;
           color: var(--faint);
           margin: 0;

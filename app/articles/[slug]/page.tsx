@@ -104,13 +104,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           margin: 0 auto;
           padding: 0 40px;
         }
+        /* 240 rail + 56 gap + 768 article, the same three numbers the other
+           Soch blogs lay a post out on, plus this site's 40px gutters. */
         .ap-wrap.has-toc {
-          max-width: 1120px;
+          max-width: 1144px;
         }
         @media (min-width: 1024px) {
           .ap-grid {
             display: grid;
-            grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 15rem) minmax(0, 768px);
             gap: 56px;
             align-items: start;
           }
