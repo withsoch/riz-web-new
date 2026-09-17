@@ -1,10 +1,27 @@
+import { isValidElement, type ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AnimateIn from "@/components/AnimateIn";
 import { ArticleImage } from "@/components/ArticleCards";
-import { getAllArticles, getArticle, formatArticleDate } from "@/lib/articles";
+import { ArticleToc } from "@/components/ArticleToc";
+import {
+  getAllArticles,
+  getArticle,
+  getHeadings,
+  slugifyHeading,
+  formatArticleDate,
+} from "@/lib/articles";
+
+/** The heading's plain text, for its anchor id: children may be nested nodes. */
+function nodeText(node: ReactNode): string {
+  if (node === null || node === undefined || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(nodeText).join("");
+  if (isValidElement(node)) return nodeText((node.props as { children?: ReactNode }).children);
+  return "";
+}
 
 export function generateStaticParams() {
   return getAllArticles().map((article) => ({ slug: article.slug }));
@@ -30,6 +47,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
+
+  const headings = getHeadings(article.body);
+  const hasToc = headings.length > 1;
 
   return (
     <>
@@ -76,16 +96,40 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           padding: 72px 0 96px;
           background: var(--bg);
         }
+        /* Without a rail the article keeps its own 760px column. With one, the
+           block widens just enough to carry the 15rem rail beside the same
+           measure, the way the other Soch blogs lay a post out. */
         .ap-wrap {
           max-width: 760px;
           margin: 0 auto;
           padding: 0 40px;
         }
+        .ap-wrap.has-toc {
+          max-width: 1120px;
+        }
+        @media (min-width: 1024px) {
+          .ap-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+            gap: 56px;
+            align-items: start;
+          }
+        }
+        /* 18px / 1.75, the reading size his own pages and the other Soch blogs
+           use. It has to be set on the elements: globals styles p and li
+           directly at 16px, and a rule on the element beats an inherited size
+           from this wrapper. */
         .ap-prose {
-          font-size: 1.0625rem;
+          font-size: 18px;
           line-height: 1.75;
           color: var(--body);
         }
+        .ap-prose p, .ap-prose li {
+          font-size: 18px;
+          line-height: 1.75;
+        }
+        /* Anchor targets for the rail. The offset clears the fixed navbar. */
+        .ap-prose h2, .ap-prose h3, .ap-prose h4 { scroll-margin-top: 112px; }
         .ap-prose > p { margin: 0 0 1.35rem; }
         .ap-prose h2 {
           font-family: var(--font-display);
@@ -163,18 +207,35 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
       `}</style>
 
-        <div className="ap-wrap">
-          <div className="ap-prose">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
-          </div>
+        <div className={`ap-wrap${hasToc ? " has-toc" : ""}`}>
+          <div className={hasToc ? "ap-grid" : ""}>
+            {hasToc && <ArticleToc headings={headings} />}
 
-          <div className="ap-foot">
-            <Link href="/articles" className="ap-back">
-              &larr; All articles
-            </Link>
-            <Link href="/booking" className="btn-coral">
-              Have a chat with me
-            </Link>
+            <div>
+              <div className="ap-prose">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    // All three levels get ids, because getHeadings falls back
+                    // to h3/h4 on a post that has no h2.
+                    h2: ({ children }) => <h2 id={slugifyHeading(nodeText(children))}>{children}</h2>,
+                    h3: ({ children }) => <h3 id={slugifyHeading(nodeText(children))}>{children}</h3>,
+                    h4: ({ children }) => <h4 id={slugifyHeading(nodeText(children))}>{children}</h4>,
+                  }}
+                >
+                  {article.body}
+                </ReactMarkdown>
+              </div>
+
+              <div className="ap-foot">
+                <Link href="/articles" className="ap-back">
+                  &larr; All articles
+                </Link>
+                <Link href="/booking" className="btn-coral">
+                  Have a chat with me
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

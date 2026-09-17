@@ -88,3 +88,56 @@ export function formatArticleDate(raw: string): string {
   if (Number.isNaN(parsed.getTime())) return raw;
   return parsed.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
+
+export type Heading = { id: string; text: string };
+
+export function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/**
+ * Section headings for the "In this article" rail, in document order, matching
+ * how the other Soch blogs build theirs.
+ *
+ * Normally the post's `##` headings. A post that sets every section as `###`
+ * or `####` falls back to the shallowest level it actually uses, so it still
+ * gets a rail. Deliberately does NOT de-duplicate repeated headings, so the id
+ * here always matches the one the renderer gives the same text.
+ */
+export function getHeadings(body: string): Heading[] {
+  const found: { level: number; text: string }[] = [];
+  let inFence = false;
+
+  // Posts may be checked out with CRLF endings; without stripping the carriage
+  // return the end-of-line anchor below never matches.
+  for (const line of body.replace(/\r/g, "").split("\n")) {
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+
+    const match = line.match(/^(#{2,4})[ \t]+(.+?)[ \t]*#*[ \t]*$/);
+    if (!match) continue;
+
+    const text = match[2]
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // links -> their text
+      .replace(/[*_`]/g, "")
+      .trim();
+
+    if (text) found.push({ level: match[1].length, text });
+  }
+
+  if (found.length === 0) return [];
+
+  const topLevel = Math.min(...found.map((h) => h.level));
+  return found
+    .filter((h) => h.level === topLevel)
+    .map((h) => ({ id: slugifyHeading(h.text), text: h.text }));
+}
