@@ -76,10 +76,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           padding: 72px 0 96px;
           background: var(--bg);
         }
+        /* The article column sits inside the site container and starts at the
+           same left edge as the navbar and the hero above it, rather than
+           being centred in its own narrower box, which left far wider
+           gutters here than anywhere else on the site. */
         .ap-wrap {
-          max-width: 760px;
+          max-width: var(--maxw);
           margin: 0 auto;
           padding: 0 40px;
+        }
+        .ap-col {
+          max-width: 860px;
         }
         .ap-prose {
           font-size: 1.0625rem;
@@ -164,17 +171,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       `}</style>
 
         <div className="ap-wrap">
-          <div className="ap-prose">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
-          </div>
+          <div className="ap-col">
+            <div className="ap-prose">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
+            </div>
 
-          <div className="ap-foot">
-            <Link href="/articles" className="ap-back">
-              &larr; All articles
-            </Link>
-            <Link href="/booking" className="btn-coral">
-              Have a chat with me
-            </Link>
+            <div className="ap-foot">
+              <Link href="/articles" className="ap-back">
+                &larr; All articles
+              </Link>
+              <Link href="/booking" className="btn-coral">
+                Have a chat with me
+              </Link>
+            </div>
           </div>
         </div>
       </section>
