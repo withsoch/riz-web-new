@@ -127,13 +127,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           display: block;
           margin: 2rem 0 0.75rem;
         }
-        /* The pipeline writes an italic caption line straight after an image. */
+        /* The pipeline writes an italic caption line straight after an image,
+           and a photo credit line in the same shape at the end of the post.
+           Both read as small mono type; only a real caption tucks up under
+           its image, so the credit keeps normal paragraph spacing. */
         .ap-prose p > em:only-child {
           display: block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.875rem;
           font-style: normal;
+          line-height: 1.5;
           color: var(--faint);
+        }
+        .ap-prose p:has(> img) { margin: 0; }
+        .ap-prose p:has(> img) + p > em:only-child {
           margin-top: -0.5rem;
           margin-bottom: 2rem;
         }

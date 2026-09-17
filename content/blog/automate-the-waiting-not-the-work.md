@@ -27,6 +27,10 @@ This is why so many pilots feel disappointing after launch. The tool works. The 
 
 Most process maps are drawn in a workshop, from memory, by the people who understand the process best. They are neat, they are agreed, and they describe a version of the work that does not happen.
 
+![An analyst working through a spreadsheet at a desk, with a notebook open beside the laptop](https://images.pexels.com/photos/8297058/pexels-photo-8297058.jpeg?auto=compress&cs=tinysrgb&fm=webp&fit=crop&w=1600&h=900)
+
+*Three columns and last week's real cases. Duller than a workshop, and much closer to the truth.*
+
 Do it the boring way instead. Take twenty real cases from last week and give each one three columns: when it arrived, when a human first touched it, when it left. Nothing else. No swimlanes, no tooling decisions, no opinions.
 
 Two things fall out of that sheet almost immediately.
@@ -40,6 +44,10 @@ You do not need a tool to see either one. You need the timestamps, which is the 
 
 Once you can see where the clock runs, the first moves are usually not clever, and usually not AI.
 
+![One colleague passing a printed document across a table to another](https://images.pexels.com/photos/9052598/pexels-photo-9052598.jpeg?auto=compress&cs=tinysrgb&fm=webp&fit=crop&w=1600&h=900)
+
+*This is where the hours go: the moment work changes hands and nobody owns the clock.*
+
 Route the request to a named owner the moment it arrives rather than into a shared inbox. Notify at the point something becomes ready, not on a daily digest. Delete the approval nobody has rejected in a year, or default it below a threshold and review the exceptions. Make the handoff explicit, so no item is ever in a state where two people each think it is with the other.
 
 I have seen a routing rule and one deleted approval step do more for cycle time than any model would have. That is not a story about AI being overrated. It is about earning the right to automate the interesting part.
@@ -47,6 +55,10 @@ I have seen a routing rule and one deleted approval step do more for cycle time 
 ## Give the model the judgement, and keep the decision
 
 AI earns its place at a specific point: turning messy human input into something structured, and preparing a decision so the human can make it in seconds rather than minutes.
+
+![A manager reading through a document at a desk, pen in hand](https://images.pexels.com/photos/5668849/pexels-photo-5668849.jpeg?auto=compress&cs=tinysrgb&fm=webp&fit=crop&w=1600&h=900)
+
+*The model prepares the decision. The person still makes it.*
 
 A supplier email becomes a structured request with the amount, the date and the missing field flagged. A long thread becomes three lines and a recommendation. A reply gets drafted so approval is a yes or a no, not a writing exercise at nine in the evening.
 
@@ -69,3 +81,5 @@ Pick one process that people complain about. Take last week's real cases, three 
 That exercise takes an afternoon and it will tell you more than any tool evaluation. It also tends to tell you the automation you were about to buy was aimed at the wrong minute.
 
 If you want a second pair of eyes on the sheet, that is most of what happens in a [clarity session](/booking), and how every build I do through Soch starts. The [consulting page](/services/consulting) explains the rest, and there is a [guide on building the failure path first](/guides/n8n-build-the-failure-path-first) if you would rather start on your own.
+
+*Photos by Christina Morillo, Mikhail Nilov, SHVETS production and Sora Shimazaki on Pexels.*
