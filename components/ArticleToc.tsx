@@ -50,13 +50,16 @@ export function ArticleToc({ headings }: { headings: Heading[] }) {
     <aside className="ar-toc">
       <style>{`
         .ar-toc { margin-bottom: 2.5rem; }
+        /* Sized to match the rail on the other Soch blogs, measured rather
+           than read off their classes: label 14px/600 at 0.16em tracking,
+           entries 16px on 22px, both in the body face. */
         .ar-toc-label {
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
+          font-family: var(--font-body);
+          font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: var(--muted);
+          color: var(--faint);
           margin: 0;
         }
         .ar-toc-list {
@@ -70,9 +73,11 @@ export function ArticleToc({ headings }: { headings: Heading[] }) {
         .ar-toc-list li:first-child { border-top: 0; }
         .ar-toc-list a {
           display: block;
-          padding: 0.75rem 0;
-          font-size: 0.9375rem;
-          line-height: 1.4;
+          padding: 12px 0;
+          font-family: var(--font-body);
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 22px;
           color: var(--muted);
           text-decoration: none;
           transition: color 0.2s var(--ease);
