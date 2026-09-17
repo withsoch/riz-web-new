@@ -1,58 +1,22 @@
-"use client";
-import { useEffect, useState } from "react";
 import type { Heading } from "@/lib/articles";
 
 /**
- * "In this article" rail, the same one the other Soch blogs carry. Sticks to
- * the left of the article on lg and up, clearing the fixed navbar, and stacks
- * above the article below that. Entries are the post's own `##` headings.
+ * "In this article" rail, the same one the other Soch blogs carry, down to the
+ * type: label 14px / 600 at 0.16em, entries 16px on 22px, both in the body
+ * face, with a hairline between entries and a brand-coloured hover. Plain by
+ * design: no highlight for the section being read, as on those sites.
  *
- * The current section is highlighted as you read: the last heading whose top
- * has passed the navbar wins, so the rail always marks where you are rather
- * than what is merely on screen.
+ * Sticks to the left of the article on lg and up, clearing the fixed navbar,
+ * and stacks above the article below that. Entries are the post's own `##`
+ * headings, via getHeadings.
  */
 export function ArticleToc({ headings }: { headings: Heading[] }) {
-  const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? "");
-
-  useEffect(() => {
-    if (headings.length === 0) return;
-
-    const pick = () => {
-      let current = headings[0].id;
-      for (const heading of headings) {
-        const el = document.getElementById(heading.id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= 140) current = heading.id;
-      }
-      setActiveId(current);
-    };
-
-    let frame = 0;
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        pick();
-      });
-    };
-
-    pick();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [headings]);
-
   if (headings.length === 0) return null;
 
   return (
     <aside className="ar-toc">
       <style>{`
         .ar-toc { margin-bottom: 2.5rem; }
-        /* Sized to match the rail on the other Soch blogs, measured rather
-           than read off their classes: label 14px/600 at 0.16em tracking,
-           entries 16px on 22px, both in the body face. */
         .ar-toc-label {
           font-family: var(--font-body);
           font-size: 14px;
@@ -82,8 +46,7 @@ export function ArticleToc({ headings }: { headings: Heading[] }) {
           text-decoration: none;
           transition: color 0.2s var(--ease);
         }
-        .ar-toc-list a:hover { color: var(--coral); }
-        .ar-toc-list a[data-active="true"] { color: var(--ink); font-weight: 500; }
+        .ar-toc-list a:hover { color: var(--coral-d); }
         @media (min-width: 1024px) {
           .ar-toc {
             position: sticky;
@@ -103,9 +66,7 @@ export function ArticleToc({ headings }: { headings: Heading[] }) {
         <ul className="ar-toc-list">
           {headings.map((heading) => (
             <li key={heading.id}>
-              <a href={`#${heading.id}`} data-active={heading.id === activeId}>
-                {heading.text}
-              </a>
+              <a href={`#${heading.id}`}>{heading.text}</a>
             </li>
           ))}
         </ul>
