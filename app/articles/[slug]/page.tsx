@@ -13,6 +13,7 @@ import {
   slugifyHeading,
   formatArticleDate,
 } from "@/lib/articles";
+import { absoluteUrl, faqFromMarkdown, jsonLd } from "@/lib/seo";
 
 /** The heading's plain text, for its anchor id: children may be nested nodes. */
 function nodeText(node: ReactNode): string {
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${article.title} · Rizwan Mahmood`,
     description: article.excerpt || undefined,
+    alternates: { canonical: `/articles/${slug}` },
     openGraph: {
       title: article.title,
       description: article.excerpt || undefined,
@@ -48,11 +50,45 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = getArticle(slug);
   if (!article) notFound();
 
+
+  // What this post is, for search engines and AI answer engines: an article
+  // with its dates and author, and its FAQ as questions and answers.
+  const faq = faqFromMarkdown(article.body);
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: article.title,
+      description: article.excerpt || undefined,
+      ...(article.image ? { image: absoluteUrl(article.image) } : {}),
+      ...(article.date ? { datePublished: article.date, dateModified: article.date } : {}),
+      author: { "@type": "Person", name: "Rizwan Mahmood", url: absoluteUrl("/") },
+      publisher: { "@type": "Person", name: "Rizwan Mahmood", url: absoluteUrl("/") },
+      mainEntityOfPage: absoluteUrl(`/articles/${article.slug}`),
+    },
+    ...(faq.length
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faq.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
+          },
+        ]
+      : []),
+  ];
   const headings = getHeadings(article.body);
   const hasToc = headings.length > 1;
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
+      />
       {/* Split hero, per the blog post hero spec: text left, contained image
           right, on a tinted band with a hairline handing off to the white
           body below. The top padding clears the fixed navbar. */}

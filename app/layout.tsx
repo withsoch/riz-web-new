@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Wix_Madefor_Text } from "next/font/google";
 import "./globals.css";
+import { jsonLd, SITE_URL as SEO_SITE_URL } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AudioProvider } from "@/contexts/audio-context";
@@ -26,7 +27,18 @@ const wixMadeforText = Wix_Madefor_Text({
   display: "swap",
 });
 
+/** Who the site is, for search engines and AI answer engines. */
+const SITE_ENTITY = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Rizwan Mahmood",
+  url: SEO_SITE_URL,
+  description: "Rizwan Mahmood helps business owners think clearly enough that automation actually works, and builds the systems that prove it. Operator and builder, based in Tallinn.",
+  sameAs: ["https://www.linkedin.com/in/consult-with-riz/", "https://www.instagram.com/etz.riz/"],
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SEO_SITE_URL),
   title: "Rizwan Mahmood · Operator · Builder · Tallinn",
   description:
     "I help business owners think clearly enough that automation actually works, and I build the systems that prove it.",
@@ -44,6 +56,10 @@ export default function RootLayout({
       className={`${wixMadeforText.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(SITE_ENTITY) }}
+        />
         <AudioProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
