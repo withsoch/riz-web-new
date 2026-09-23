@@ -14,14 +14,25 @@
 
 Three ways to work with Riz — see [Services overview](http://aiwithriz.com/services):
 
-1. **Consulting** — [/services/consulting](http://aiwithriz.com/services/consulting). Ops and process diagnosis, AI readiness assessment, fractional advisory, tool-stack audits, and an executable roadmap. Delivered as a focused 1:1 session — bring a tough question, a vague problem, or just bounce ideas off him.
+1. **Consulting** — [/services/consulting](http://aiwithriz.com/services/consulting). "Clarity before systems." For owners and founders who know something is wrong but can't quite name it. Three formats:
+   - **Strategy sessions** — 90 minutes, recorded, actioned. Name the problem, leave with a clear direction.
+   - **Fractional ops** — 1–2 days/week, embedded in the team. Riz runs ops alongside you, not for you.
+   - **Advisory retainer** — monthly, async-first, a second opinion on hard decisions.
+   - Every engagement starts with a fixed intro call before anything is scoped, gives direct access (no account managers, no hand-offs), and includes documentation and hand-over on everything built.
+   - **Pricing on this page**: from $140/hr, retainers from $2,400/mo. (Note: the separate [Booking](http://aiwithriz.com/booking) page lists a flat $200 for a single 60-minute 1:1 session — that's the standalone one-off booking product; the consulting page's hourly/retainer rates apply to ongoing engagements.)
 2. **Automation builds (via Soch)** — delivered through [Soch](https://withsoch.com), the AI workflow automation agency Riz co-founded. Scoped up front, weekly demos, full documentation and handover included, no retainer required. Covers n8n workflow automations, AI agents, internal tools, and Claude/LLM agent integrations — idea to deployed system.
-3. **Workshops & speaking** — [/services/speaking](http://aiwithriz.com/services/speaking). In-person or remote, hands-on build-in-session format — no slide decks, teams leave with a working automation they built live. Formats: keynotes/conference talks, team AI workshops, executive education sessions.
+3. **Workshops & speaking** — [/services/speaking](http://aiwithriz.com/services/speaking). "On stages and in rooms." Talks and team sessions on AI leverage, the future of ops, and what changes when smart people get powerful tools. Topics: "Think first, then automate" (the core thesis — what goes wrong when companies add AI without getting clear first); what Careem, Bolt, and Wise taught him about ops at scale; AI literacy for operators. Formats:
+   - **Keynote** (45–60 min) — one clear thesis with real stories from scaling ops across Careem, Bolt, and Wise; ends with a framework usable Monday morning.
+   - **Workshop** (half day) — hands-on, specific to the team's actual workflows; room leaves with a working framework, not slides.
+   - **Founder dinner facilitation** (2–3 hours) — an intimate, off-the-record session for 6–12 founders/execs on AI leverage and scaling ops.
+   - **Podcast guest** (flexible) — long-form or quick-hit formats on AI literacy, the Careem/Bolt/Wise years, and giving smart people powerful tools.
+   - Booking enquiries: riz@withsoch.com.
 
 ### Booking / pricing
 
-- [Booking](http://aiwithriz.com/booking): 1:1 session, 60 minutes, focused on AI, operations, or building a working system. **$200 per session.**
-- Automation project pricing is scoped per engagement through Soch (riz@withsoch.com) — not fixed-rate, since scope varies.
+- [Booking](http://aiwithriz.com/booking): standalone 1:1 session, 60 minutes, focused on AI, operations, or building a working system. **$200 per session.**
+- [Consulting](http://aiwithriz.com/services/consulting) ongoing engagements: strategy sessions, fractional ops, or advisory retainer — **from $140/hr, retainers from $2,400/mo.**
+- Automation project pricing (via Soch) is scoped per engagement — not fixed-rate, since scope varies. Contact riz@withsoch.com.
 
 ## Case studies
 
@@ -71,14 +82,16 @@ Three ways to work with Riz — see [Services overview](http://aiwithriz.com/ser
 
 ## Writing
 
-- [Blog](http://aiwithriz.com/blog): Posts on AI, automation, and operations, syndicated from the "Conversations with Riz" Substack (conversationswithriz.substack.com).
-- [Writing](http://aiwithriz.com/writing): Longer-form essays, including a firsthand account of Riz's wrongful-termination dispute with Bolt ("Bolt called it a Performance Review. It was a Firing. I fought back. I Won.") and a complete A-to-Z guide to Estonia's Labour Dispute Committee (Töövaidluskomisjon) for anyone facing termination, unpaid wages, or workplace mistreatment there.
+- [Blog](http://aiwithriz.com/blog) and [Writing](http://aiwithriz.com/writing): both pull live from the "Conversations with Riz" Substack (conversationswithriz.substack.com/feed). Current posts:
+  1. **"When Work Goes Wrong in Estonia: A Complete A-to-Z Guide to the Labour Dispute Committee (Töövaidluskomisjon)"** — a complete guide for anyone in Estonia facing a termination letter, unpaid wages, or workplace mistreatment, covering how to file and win a case at the Töövaidluskomisjon.
+  2. **"Bolt called it a Performance Review. It was a Firing. I fought back. I Won."** — Riz's firsthand account of his 2025 wrongful-termination dispute with Bolt, the Labour Dispute Committee process, and winning the case.
+  New posts publish to the same Substack feed and appear automatically on both site pages.
 
 ## Frequently asked
 
 - **Who is Rizwan Mahmood?** An operator and builder based in Tallinn, Estonia, with ten years of operations experience at Careem, Bolt, and Wise, now running the AI automation agency Soch and consulting independently on AI and operations.
 - **What does Riz do?** He diagnoses broken or unclear business processes, then designs and builds the AI systems (agents, n8n workflows, internal tools) that automate them — via 1:1 consulting, automation builds through Soch, or team workshops.
-- **How do I book time with Riz?** Book a 60-minute 1:1 session for $200 at [aiwithriz.com/booking](http://aiwithriz.com/booking).
+- **How do I book time with Riz?** Book a standalone 60-minute 1:1 session for $200 at [aiwithriz.com/booking](http://aiwithriz.com/booking), or for an ongoing engagement (strategy sessions, fractional ops, advisory retainer), see [Consulting](http://aiwithriz.com/services/consulting) — from $140/hr, retainers from $2,400/mo.
 - **What is Soch?** Soch is the AI workflow automation agency Riz co-founded and runs with one trusted partner, building n8n workflows, AI agents, and internal tools for businesses. See [withsoch.com](https://withsoch.com).
 - **Does Riz do speaking or workshops?** Yes — hands-on, no-slide-deck workshops and talks where teams build a working automation live. See [/services/speaking](http://aiwithriz.com/services/speaking).
 - **What results has Riz delivered?** Examples include cutting Bolt's courier costs from 21% to 14% of GMV across 20 countries ($3.9M saved), building emergency dispatch at Careem that cut response time from 3 minutes to 20 seconds, and 20+ client automation systems with up to 89% time savings — see [Case studies](http://aiwithriz.com/case-studies).
