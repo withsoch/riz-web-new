@@ -1,0 +1,36 @@
+# Rizwan Mahmood (Riz)
+
+> Operator and builder based in Tallinn, Estonia. Ten years running operations across four continents (Careem, Bolt, Wise) before founding Soch, an AI workflow automation agency. Helps business owners get clear on their process before automating it, then builds the AI systems, agents, and n8n workflows that prove it works. Consulting, automation builds, and workshops for founders and operators.
+
+## About
+
+- [About](http://aiwithriz.com/about): Career background — Cambridge, ACCA-qualified, product ops at S&P Global, built emergency healthcare dispatch at Careem (cut response time from 3 minutes to 20 seconds), cut courier costs from 21% to 14% of GMV across 20 countries at Bolt ($3.9M saved), ran process improvement at Wise (92% straight-through reconciliation), now co-runs Soch and hosts the "Conversations with Riz" podcast.
+
+## Work with Riz
+
+- [Services overview](http://aiwithriz.com/services): Three ways to work together — 1:1 consulting, automation builds through Soch, and team workshops/speaking.
+- [Consulting](http://aiwithriz.com/services/consulting): Ops/process diagnosis, AI readiness assessment, fractional advisory, tool-stack audits, and an executable roadmap.
+- [Speaking & workshops](http://aiwithriz.com/services/speaking): Hands-on, build-in-session talks and team workshops on AI leverage — no slide decks, teams leave with a working automation.
+- [Booking](http://aiwithriz.com/booking): Book a focused 60-minute 1:1 session on AI, operations, or system design. $200 per session.
+- Automation and agent builds are delivered through [Soch](https://withsoch.com) — n8n workflows, AI agents, internal tools, full documentation and handover, no retainer required. Contact: riz@withsoch.com.
+
+## Case Studies
+
+- [Case studies](http://aiwithriz.com/case-studies): 20 anonymized real-world automation builds across 12 industries, with measured outcomes (up to 89% time savings, delivery in as little as 1 week). Common stack: n8n, Claude API, plus integrations like Twilio, Airtable, HubSpot, Shopify, Gmail, and Slack. Examples include AI lead qualification and routing, client intake automation, appointment no-show recovery, AI support triage, trial-to-paid conversion workflows, churn risk detection, and abandoned cart recovery.
+
+## Guides
+
+- [Guides](http://aiwithriz.com/guides): Practical, tactical guides on AI tools and automation, including working with Claude and Claude Skills, ChatGPT memory and Agent Mode, Gemini in Chrome and for photo editing, prompt engineering ("definition of done" prompts), n8n automation patterns, and comparisons like Zapier vs Make vs n8n.
+
+## Writing
+
+- [Blog](http://aiwithriz.com/blog): Posts on AI, automation, and operations, syndicated from the "Conversations with Riz" Substack (conversationswithriz.substack.com).
+- [Writing](http://aiwithriz.com/writing): Longer-form essays, including a firsthand account of a wrongful termination dispute with Bolt and a complete guide to Estonia's Labour Dispute Committee (Töövaidluskomisjon).
+
+## Contact
+
+- Email: riz@withsoch.com
+- LinkedIn: https://linkedin.com/in/consult-with-riz/
+- Instagram: https://instagram.com/etz.riz/
+- Substack: https://conversationswithriz.substack.com/
+- Company: [Soch](https://withsoch.com) — AI workflow automation agency, Anthropic Partner
