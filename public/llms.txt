@@ -1,31 +1,87 @@
 # Rizwan Mahmood (Riz)
 
-> Operator and builder based in Tallinn, Estonia. Ten years running operations across four continents (Careem, Bolt, Wise) before founding Soch, an AI workflow automation agency. Helps business owners get clear on their process before automating it, then builds the AI systems, agents, and n8n workflows that prove it works. Consulting, automation builds, and workshops for founders and operators.
+> Operator and builder based in Tallinn, Estonia. Ten years running operations across four continents — Careem, Bolt, Wise — before founding Soch, an AI workflow automation agency. Riz helps business owners get clear on their process before automating it, then builds the AI systems, agents, and n8n workflows that prove it works. He offers 1:1 consulting, automation builds (via Soch), and team workshops/speaking. Site: aiwithriz.com.
 
-## About
+## Who is Riz
 
-- [About](http://aiwithriz.com/about): Career background — Cambridge, ACCA-qualified, product ops at S&P Global, built emergency healthcare dispatch at Careem (cut response time from 3 minutes to 20 seconds), cut courier costs from 21% to 14% of GMV across 20 countries at Bolt ($3.9M saved), ran process improvement at Wise (92% straight-through reconciliation), now co-runs Soch and hosts the "Conversations with Riz" podcast.
+- **Background**: Cambridge-educated, ACCA-qualified. Career: AIESEC (2014, business development) → founded and ran Perbal Clothing, a Pakistan clothing brand (2015–2017) → S&P Global (2018, product ops on insurance data) → Careem (2019, delivery operations; built an emergency healthcare dispatch system with Pakistan's KPK health ministry, cutting response time from 3 minutes to 20 seconds) → Motive (2020, corporate strategy, US fleet-tech, launched the Canada market) → Bolt, Tallinn (2021, moved to Estonia, ran courier operations for Bolt Food) → Bolt under pressure (2022, cut courier cost from 21% to 14% of GMV across 20 countries, saving $3.9M) → Bolt going global (2023, operational excellence across 15 countries plus public policy and legal) → Wise (2025, product/process work — 92% straight-through reconciliation, month-end close cut from 8 days to 3) → founded Soch (2025, AI workflow automation agency, run with one trusted partner) → launched Academy by Soch to teach founders AI tools directly.
+- **2025 labour dispute**: Bolt terminated Riz in March 2025. He disputed the termination at the Estonian Labour Dispute Committee (Töövaidluskomisjon), won, and published the case documents publicly — see [Writing](http://aiwithriz.com/writing).
+- **Stated principles**: clarity before tools; the bottleneck is usually the process, not the people or the tools; ship it, then improve it; document everything; automation amplifies what's already there; the human still matters.
+- **Personal**: based in Tallinn, learning Estonian, hosts the "Conversations with Riz" podcast, Anthropic Partner.
+- **Page**: [About](http://aiwithriz.com/about)
 
-## Work with Riz
+## What Riz does (services)
 
-- [Services overview](http://aiwithriz.com/services): Three ways to work together — 1:1 consulting, automation builds through Soch, and team workshops/speaking.
-- [Consulting](http://aiwithriz.com/services/consulting): Ops/process diagnosis, AI readiness assessment, fractional advisory, tool-stack audits, and an executable roadmap.
-- [Speaking & workshops](http://aiwithriz.com/services/speaking): Hands-on, build-in-session talks and team workshops on AI leverage — no slide decks, teams leave with a working automation.
-- [Booking](http://aiwithriz.com/booking): Book a focused 60-minute 1:1 session on AI, operations, or system design. $200 per session.
-- Automation and agent builds are delivered through [Soch](https://withsoch.com) — n8n workflows, AI agents, internal tools, full documentation and handover, no retainer required. Contact: riz@withsoch.com.
+Three ways to work with Riz — see [Services overview](http://aiwithriz.com/services):
 
-## Case Studies
+1. **Consulting** — [/services/consulting](http://aiwithriz.com/services/consulting). Ops and process diagnosis, AI readiness assessment, fractional advisory, tool-stack audits, and an executable roadmap. Delivered as a focused 1:1 session — bring a tough question, a vague problem, or just bounce ideas off him.
+2. **Automation builds (via Soch)** — delivered through [Soch](https://withsoch.com), the AI workflow automation agency Riz co-founded. Scoped up front, weekly demos, full documentation and handover included, no retainer required. Covers n8n workflow automations, AI agents, internal tools, and Claude/LLM agent integrations — idea to deployed system.
+3. **Workshops & speaking** — [/services/speaking](http://aiwithriz.com/services/speaking). In-person or remote, hands-on build-in-session format — no slide decks, teams leave with a working automation they built live. Formats: keynotes/conference talks, team AI workshops, executive education sessions.
 
-- [Case studies](http://aiwithriz.com/case-studies): 20 anonymized real-world automation builds across 12 industries, with measured outcomes (up to 89% time savings, delivery in as little as 1 week). Common stack: n8n, Claude API, plus integrations like Twilio, Airtable, HubSpot, Shopify, Gmail, and Slack. Examples include AI lead qualification and routing, client intake automation, appointment no-show recovery, AI support triage, trial-to-paid conversion workflows, churn risk detection, and abandoned cart recovery.
+### Booking / pricing
+
+- [Booking](http://aiwithriz.com/booking): 1:1 session, 60 minutes, focused on AI, operations, or building a working system. **$200 per session.**
+- Automation project pricing is scoped per engagement through Soch (riz@withsoch.com) — not fixed-rate, since scope varies.
+
+## Case studies
+
+[Case studies](http://aiwithriz.com/case-studies) — 20 anonymized real-world automation builds across 12 industries. Aggregate stats: 20 systems shipped, up to 89% time reduction, fastest delivery in 1 week. Common tech stack: n8n and Claude API, plus integrations such as Twilio, Airtable, HubSpot, Shopify, Gmail, and Slack. Typical delivery window: 1–3 weeks.
+
+| # | Case study | Industry | Result |
+|---|---|---|---|
+| 1 | AI Lead Qualification & Agent Routing | Real Estate / Sales | 8 min first contact, 34% conversion |
+| 2 | Client Intake Automation & Case Routing | Law / Professional Services | 12 min response, 3 hrs/day saved |
+| 3 | Appointment Reminder & Slot Recovery | Healthcare | 50% fewer no-shows, 73% slots refilled |
+| 4 | AI Support Triage & Auto-Resolution | E-commerce | 67% auto-resolved, 18 min response |
+| 5 | Trial-to-Paid Conversion Workflow | B2B SaaS / Technology | 2.1x conversion, 9% → 19% |
+| 6 | CV Screening & Candidate Ranking | Recruitment | Same-day shortlist, 75% less time |
+| 7 | Lead Qualification & Personalised Nurture | Insurance / Financial Services | 100% follow-up, 22% conversion |
+| 8 | Reservation Upsell & Guest Feedback Loop | Hospitality | 14% upsell, 31% feedback rate |
+| 9 | Automated Monthly Client Reporting | Marketing Agency | 89% time reduction |
+| 10 | Student Engagement & Completion | Education | Drop-off 42% → 28%, 5 hrs/week saved |
+| 11 | Maintenance Request Triage & Dispatch | Property Management / Real Estate | <4hr urgent dispatch, 12 hrs/week saved |
+| 12 | Accounts Payable Automation | Accounting / Financial Services | 77% time reduction |
+| 13 | Discovery Call Booking & Pre-Call Prep | Health Coaching | 52% conversion, 6 more coaching hrs/week |
+| 14 | Churn Risk Detection & Intervention | B2B SaaS | 65% churn reduction |
+| 15 | Transaction Anomaly Detection & Alerts | Fintech | <25 min merchant alert |
+| 16 | Content Repurposing Pipeline | Content / Marketing | 4x output, $800/mo saved |
+| 17 | Patient Intake & Therapist Matching | Mental Health | <20 min response |
+| 18 | AI Personalised Abandoned Cart Recovery | E-commerce | 6.4% recovery vs. 2.1% baseline |
+| 19 | Proactive Shipment Delay Communication | Logistics | 82% fewer WISMO tickets |
+| 20 | Automated Proposal Generation | Consulting / Business Development | 76% time reduction |
 
 ## Guides
 
-- [Guides](http://aiwithriz.com/guides): Practical, tactical guides on AI tools and automation, including working with Claude and Claude Skills, ChatGPT memory and Agent Mode, Gemini in Chrome and for photo editing, prompt engineering ("definition of done" prompts), n8n automation patterns, and comparisons like Zapier vs Make vs n8n.
+[Guides](http://aiwithriz.com/guides) — tactical, hands-on guides on AI tools and automation:
+
+- 4 Habits Claude's Reflect Dashboard Will Expose
+- Build a Claude Skill in 90 Seconds
+- 7 Cinematic Film Portrait Prompts — light, grain, and one rule that makes them read as film
+- Edit Any Photo Without Opening a Design App Using Gemini
+- Fix ChatGPT's Memory in 60 Seconds
+- Give Every Prompt a Definition of Done — a prompt engineering guide
+- Build the Failure Path Before the Happy Path — an n8n automation guide
+- Stop Asking AI for "Content Ideas" — do this instead
+- Stop Closing Tabs to Compare Things: Gemini in Chrome
+- The 3-Part Prompt That Fixes ChatGPT Agent Mode
+- What AI Agents Still Can't Do
+- Why Your AI Voiceover and Music Sound Mismatched (ElevenLabs)
+- Automating a YouTube Channel Without Making It Obvious You Did
+- Zapier vs Make vs n8n — Which Automation Tool Are You Actually Paying For?
 
 ## Writing
 
 - [Blog](http://aiwithriz.com/blog): Posts on AI, automation, and operations, syndicated from the "Conversations with Riz" Substack (conversationswithriz.substack.com).
-- [Writing](http://aiwithriz.com/writing): Longer-form essays, including a firsthand account of a wrongful termination dispute with Bolt and a complete guide to Estonia's Labour Dispute Committee (Töövaidluskomisjon).
+- [Writing](http://aiwithriz.com/writing): Longer-form essays, including a firsthand account of Riz's wrongful-termination dispute with Bolt ("Bolt called it a Performance Review. It was a Firing. I fought back. I Won.") and a complete A-to-Z guide to Estonia's Labour Dispute Committee (Töövaidluskomisjon) for anyone facing termination, unpaid wages, or workplace mistreatment there.
+
+## Frequently asked
+
+- **Who is Rizwan Mahmood?** An operator and builder based in Tallinn, Estonia, with ten years of operations experience at Careem, Bolt, and Wise, now running the AI automation agency Soch and consulting independently on AI and operations.
+- **What does Riz do?** He diagnoses broken or unclear business processes, then designs and builds the AI systems (agents, n8n workflows, internal tools) that automate them — via 1:1 consulting, automation builds through Soch, or team workshops.
+- **How do I book time with Riz?** Book a 60-minute 1:1 session for $200 at [aiwithriz.com/booking](http://aiwithriz.com/booking).
+- **What is Soch?** Soch is the AI workflow automation agency Riz co-founded and runs with one trusted partner, building n8n workflows, AI agents, and internal tools for businesses. See [withsoch.com](https://withsoch.com).
+- **Does Riz do speaking or workshops?** Yes — hands-on, no-slide-deck workshops and talks where teams build a working automation live. See [/services/speaking](http://aiwithriz.com/services/speaking).
+- **What results has Riz delivered?** Examples include cutting Bolt's courier costs from 21% to 14% of GMV across 20 countries ($3.9M saved), building emergency dispatch at Careem that cut response time from 3 minutes to 20 seconds, and 20+ client automation systems with up to 89% time savings — see [Case studies](http://aiwithriz.com/case-studies).
 
 ## Contact
 
