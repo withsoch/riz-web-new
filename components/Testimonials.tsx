@@ -1,288 +1,359 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
 
 export type Testimonial = {
   id: string;
   name: string;
+  company: string;
+  /** Shown under the quote, after the name. */
   roleLine: string;
+  /** Second line on the photo panel, e.g. the client's sector. */
+  industry: string;
+  /** Meta line above the proof block, joined with " · ". */
+  meta: string[];
+  /** Headline numbers. A slide shows these or `hats`, not both. */
+  metrics?: { value: string; label: string }[];
+  /** The roles a client says Riz filled, shown as chips when there are no metrics. */
+  hats?: string[];
+  /** Pull quote shown on the slide. Verbatim from the client. */
   quote: string;
-  /** Short preview of `quote` for the clickable grid cards - full quote shows only in the featured box. */
-  teaser?: string;
+  /** Full testimonial, one string per paragraph, behind "Read the full testimonial". */
+  fullQuote?: string[];
   initials: string;
-  avatarUrl?: string;
-  /** True until this is swapped for a real client quote. Not shown in the UI - internal tracking only. */
+  /** Photo panel colour, also the fallback when `image` fails to load. */
+  accent: string;
+  /** Rooted at public/. */
+  image?: string;
+  /** True until this is swapped for a real Riz client. Not shown in the UI - internal tracking only. */
   isPlaceholder?: boolean;
-  /** Placeholder - swap for the real company name once available. Shown only in the featured area. */
-  fullCompany?: string;
-  /** Placeholder value (e.g. "[LINKEDIN_URL_NAME]") - swap for the person's real LinkedIn URL. */
-  linkedinUrl?: string;
-  /** Placeholder href ("#") - not currently rendered; kept for when a case-study/testimonial page exists. */
-  readMoreHref?: string;
 };
 
-// Placeholder quotes - swap for real ones before shipping.
-// avatarUrl entries are AI-generated placeholder faces; swap for real client photos later.
+// Biola and Kaitlin are real. Gaia and Shahzad are Social Catalyst clients
+// carried over as stand-ins (quotes and numbers are about LinkedIn work, not
+// Riz's) - swap them for Riz's own clients.
 export const testimonials: Testimonial[] = [
   {
-    id: "automation-delivery",
-    name: "Amara Whitfield",
-    roleLine: "Founder, B2B SaaS",
+    id: "biola-babawale",
+    name: "Biola Babawale",
+    company: "Cycle Together",
+    roleLine: "Founder, Cycle Together",
+    industry: "Sport, Wellness & Community",
+    meta: ["United Kingdom", "Fractional COO"],
+    hats: [
+      "Fractional COO",
+      "Chief of Staff",
+      "HR",
+      "2IC",
+      "CFO",
+      "Product Manager",
+      "Thought Partner",
+      "AI Strategist",
+    ],
     quote:
-      "Riz didn't just wire up automations. He made us rebuild how we thought about the whole sales pipeline first. That's the part that actually stuck.",
-    teaser:
-      "Riz didn't just wire up automations. He made us rebuild how we thought about the whole sales pipeline first…",
-    initials: "AW",
-    avatarUrl: "/images/testimonials/amara.jpg",
-    isPlaceholder: true,
-    fullCompany: "Northline Cloud",
-    linkedinUrl: "[LINKEDIN_URL_AMARA_WHITFIELD]",
-    readMoreHref: "#",
+      "Riz has completely transformed the way I look at my business and how we operate day-to-day. He brought in a level of structure, clarity, and confidence that I didn’t realize we were missing.",
+    fullQuote: [
+      "Riz is your Fractional COO, part Chief of Staff, part HR, part 2IC, part CFO, part Product Manager, part Thought Partner and part AI Strategist. Riz has completely transformed the way I look at my business and how we operate day-to-day. Before working with him, I often felt stuck in the details constantly juggling hiring, onboarding, and internal systems while never feeling fully in control of them. He brought in a level of structure, clarity, and confidence that I didn’t realize we were missing. From the very beginning, he made what felt complicated and overwhelming suddenly feel clear, simple, and achievable.",
+      "What makes Riz stand out is not just his expertise, but the way he delivers it. He has an incredible ability to listen deeply, understand the nuances of how we work, and then design solutions that feel like they were built exactly for us. Nothing ever felt off-the-shelf or generic. Every process, framework, and tool he introduced was thoughtful, practical, and immediately useful with a clear link back to the bigger picture of where we want to go as a business.",
+      "I also appreciate how empowering Riz is. He doesn’t just hand over systems and expect us to figure them out. He takes the time to walk through the ‘why’ behind every step, ensuring that I, and my team, feel confident using them long after his direct involvement. This means that instead of becoming dependent on him, we’ve grown stronger and more capable as an organization. That empowerment is priceless.",
+      "Another thing I value deeply is his ability to balance strategic vision with hands-on execution. Some consultants are great at big ideas but never make them practical; others are great at execution but don’t connect it to strategy. Riz does both. He can zoom out to help me think long-term and then zoom in to design a process that works seamlessly today. That range is rare, and it’s made a massive difference in how we make decisions and move forward.",
+      "On a personal level, Riz is a joy to work with. He communicates with clarity and warmth, is proactive in anticipating challenges, and always brings solutions to the table rather than problems. His calm, positive energy makes even the most complex conversations feel manageable. Every interaction leaves me feeling lighter, clearer, and more motivated.",
+      "Working with Riz isn’t just about improving operations, it’s about transforming the way you lead and experience your own business. He helps you see possibilities you might have missed, simplifies challenges you thought were too complex, and gives you the confidence to grow without burning out or losing sight of your values.",
+      "If you’re a founder or business owner who wants to build a company that scales sustainably while staying true to what matters most, I cannot recommend Riz enough. His blend of expertise, practicality, and genuine care is exceptional. Partnering with him has been one of the best investments I’ve made in both myself and my business.",
+    ],
+    initials: "BB",
+    accent: "#1f8a66",
+    image: "/images/testimonials/biola-babawale.jpg",
   },
   {
-    id: "ops-clarity",
-    name: "Daniel Okafor",
-    roleLine: "Head of Ops, logistics scale-up",
+    id: "gaia-ferrero",
+    name: "Gaia Ferrero",
+    company: "Byzantine",
+    roleLine: "Founder, Byzantine",
+    industry: "Strategy & Advisory",
+    meta: ["Europe", "12 weeks", "LinkedIn Management"],
+    metrics: [
+      { value: "100%", label: "Posting consistency maintained" },
+      { value: "4×", label: "Growth in profile views within 60 days" },
+      { value: "12+", label: "Qualified inbound conversations in 90 days" },
+    ],
     quote:
-      'We\'d tried three other "AI consultants" before Riz. He was the first one who asked about our process before touching a single tool.',
-    teaser:
-      'We\'d tried three other "AI consultants" before Riz. He was the first one who asked about our process…',
-    initials: "DO",
-    avatarUrl: "/images/testimonials/daniel.jpg",
+      "I knew what good LinkedIn looked like. I just couldn't make it happen alongside everything else. Handing it to Social Catalyst was the right call. Within a few weeks it felt like my profile finally sounded like me.",
+    initials: "GF",
+    accent: "#1f7a8c",
+    image: "/images/testimonials/gaia-ferrero.jpg",
     isPlaceholder: true,
-    fullCompany: "Meridian Logistics",
-    linkedinUrl: "[LINKEDIN_URL_DANIEL_OKAFOR]",
-    readMoreHref: "#",
   },
   {
-    id: "workshops",
-    name: "Priya Nathan",
-    roleLine: "COO, recruitment agency",
+    id: "shahzad-akhtar",
+    name: "Shahzad Akhtar",
+    company: "Strateasy Consulting",
+    roleLine: "Founder & Managing Director, Strateasy Consulting",
+    industry: "Management Consulting",
+    meta: ["Pakistan", "5 months (ongoing)", "Management Consulting"],
+    metrics: [
+      { value: "29%", label: "Outreach Reply Rate" },
+      { value: "6×", label: "Profile Views in 60 Days" },
+      { value: "11", label: "Qualified Conversations" },
+    ],
     quote:
-      "The workshop paid for itself in the first week. My team stopped treating AI like a toy and started treating it like leverage.",
-    teaser:
-      "The workshop paid for itself in the first week. My team stopped treating AI like a toy…",
-    initials: "PN",
-    avatarUrl: "/images/testimonials/priya.jpg",
+      "I had the credentials, the track record, the institutional relationships. What I did not have was a way to make any of it visible to the right people without being in the room first. Every engagement still started from zero.",
+    initials: "SA",
+    accent: "#103129",
+    image: "/images/testimonials/shahzad-akhtar.jpg",
     isPlaceholder: true,
-    fullCompany: "Harborview Recruiting",
-    linkedinUrl: "[LINKEDIN_URL_PRIYA_NATHAN]",
-    readMoreHref: "#",
   },
   {
-    id: "advisory",
-    name: "Marcus Feldt",
-    roleLine: "Managing Partner, law firm",
+    id: "kaitlin-malaspina",
+    name: "Kaitlin Malaspina",
+    company: "Brenna & Co.",
+    roleLine: "Principal & Founder, Brenna & Co.",
+    industry: "Business Architecture & Operational Stewardship",
+    meta: ["United States", "5 days", "Business Operations"],
+    // from the engagement record: May 16-20, 2025, 9 hours, rated 5.0
+    metrics: [
+      { value: "5.0", label: "Client rating, out of 5" },
+      { value: "9 hrs", label: "To organize SOPs and streamline systems" },
+      { value: "5 days", label: "Start to finish" },
+    ],
     quote:
-      "Straightforward, no-nonsense advisory. Riz told us what wouldn't work before we spent a cent building it.",
-    teaser:
-      "Straightforward, no-nonsense advisory. Riz told us what wouldn't work before we spent a cent…",
-    initials: "MF",
-    avatarUrl: "/images/testimonials/marcus.jpg",
-    isPlaceholder: true,
-    fullCompany: "Ashford Hale LLP",
-    linkedinUrl: "[LINKEDIN_URL_MARCUS_FELDT]",
-    readMoreHref: "#",
+      "Hiring Rizwan was one of the best decisions we made for our operations. He came in with clarity, efficiency, and a sharp understanding of what needed to be done. Within a short time, he organized our SOPs, streamlined our systems, and helped bring structure to areas that had previously felt overwhelming.",
+    fullQuote: [
+      "Hiring Rizwan was one of the best decisions we made for our operations. He came in with clarity, efficiency, and a sharp understanding of what needed to be done. Within a short time, he organized our SOPs, streamlined our systems, and helped bring structure to areas that had previously felt overwhelming. Rizwan is not only fast and detail-oriented, but also incredibly bright—he immediately grasped the nuances of our business and delivered thoughtful, effective solutions. I would work with him again in a heartbeat and highly recommend him to anyone seeking operational excellence.",
+    ],
+    initials: "KM",
+    accent: "#1f7a8c",
+    image: "/images/testimonials/kaitlin-malaspina.jpg",
   },
 ];
 
 export const trustedCompanies = ["Careem", "Bolt", "Wise"];
 
-function Avatar({
-  initials,
-  avatarUrl,
-  name,
-  size,
-}: {
-  initials: string;
-  avatarUrl?: string;
-  name: string;
-  size: number;
-}) {
-  const [errored, setErrored] = useState(false);
-
-  const avatarInner =
-    avatarUrl && !errored ? (
-      <img
-        src={avatarUrl}
-        alt={name}
-        className="testimonials-avatar-photo"
-        style={{ width: size, height: size }}
-        onError={() => setErrored(true)}
-      />
-    ) : (
-      <div
-        className="testimonials-avatar"
-        style={{ width: size, height: size, fontSize: Math.round(size * 0.32) }}
-      >
-        {initials}
-      </div>
-    );
-
+function Chevron({ dir }: { dir: "left" | "right" }) {
   return (
-    <span className="testimonials-avatar-wrap" style={{ width: size, height: size }}>
-      {avatarInner}
-    </span>
-  );
-}
-
-function LinkedInIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z" />
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d={dir === "right" ? "M7 4l6 6-6 6" : "M13 4l-6 6 6 6"} />
     </svg>
   );
 }
 
-function TestimonialCard({
+function SlidePhoto({ t }: { t: Testimonial }) {
+  const [errored, setErrored] = useState(false);
+  return (
+    <div className="tcar-photo" style={{ background: t.accent }}>
+      {t.image && !errored ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={t.image} alt={t.name} onError={() => setErrored(true)} />
+      ) : (
+        <span className="tcar-photo-initials" aria-hidden="true">
+          {t.initials}
+        </span>
+      )}
+      <div className="tcar-photo-shade" />
+      <div className="tcar-photo-caption">
+        <p className="tcar-photo-name">
+          {t.name}, {t.company}
+        </p>
+        <p className="tcar-photo-industry">{t.industry}</p>
+      </div>
+    </div>
+  );
+}
+
+function Slide({
   t,
-  onFeature,
-  isRecent,
+  active,
+  expanded,
+  onToggle,
 }: {
   t: Testimonial;
-  onFeature?: (id: string) => void;
-  isRecent?: boolean;
+  active: boolean;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
-  const clickable = !!onFeature;
-
   return (
     <div
-      className={`testimonials-card${clickable ? " testimonials-card-clickable" : ""}${
-        isRecent ? " testimonials-card-recent" : ""
-      }`}
-      onClick={clickable ? () => onFeature!(t.id) : undefined}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      aria-label={clickable ? `Feature ${t.name}'s testimonial` : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onFeature!(t.id);
-              }
-            }
-          : undefined
-      }
+      className="tcar-slide"
+      inert={!active}
+      aria-hidden={!active}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={`${t.name}, ${t.company}`}
     >
-      {isRecent && <span className="testimonials-card-badge">Previously featured</span>}
-      <span className="testimonials-card-mark" aria-hidden="true">&ldquo;</span>
-      <p className="testimonials-card-quote">{clickable && t.teaser ? t.teaser : t.quote}</p>
-      <div className="testimonials-author">
-        <Avatar initials={t.initials} avatarUrl={t.avatarUrl} name={t.name} size={36} />
+      <SlidePhoto t={t} />
+
+      <div className="tcar-body">
         <div>
-          <div className="testimonials-author-name">{t.name}</div>
-          {/* Role/company/LinkedIn stay exclusive to the featured box - the payoff for clicking. */}
-          {!clickable && <div className="testimonials-author-role">{t.roleLine}</div>}
+          <span className="tcar-eyebrow">Client story</span>
+          <p className="tcar-meta">{t.meta.join("  ·  ")}</p>
+        </div>
+
+        {t.metrics ? (
+          <div className="tcar-metrics">
+            {t.metrics.map((m) => (
+              <div key={m.label}>
+                <p className="tcar-metric-value">{m.value}</p>
+                <p className="tcar-metric-label">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        ) : t.hats ? (
+          <ul className="tcar-hats" aria-label="Roles Riz filled">
+            {t.hats.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        ) : null}
+
+        <div className="tcar-quote-block">
+          {expanded && t.fullQuote ? (
+            <div className="tcar-full-quote">
+              {t.fullQuote.map((p, i) => (
+                <p key={i}>
+                  {i === 0 && "“"}
+                  {p}
+                  {i === t.fullQuote!.length - 1 && "”"}
+                </p>
+              ))}
+            </div>
+          ) : (
+            <blockquote className="tcar-quote">&ldquo;{t.quote}&rdquo;</blockquote>
+          )}
+          <p className="tcar-author">
+            {t.name}, <span>{t.roleLine}</span>
+          </p>
+          {t.fullQuote && (
+            <button type="button" className="tcar-readmore" aria-expanded={expanded} onClick={onToggle}>
+              {expanded ? "Show less" : "Read the full testimonial"} <span aria-hidden="true">{expanded ? "↑" : "→"}</span>
+            </button>
+          )}
         </div>
       </div>
-      {clickable && (
-        <button
-          type="button"
-          className="testimonials-readmore testimonials-readmore-card"
-          onClick={(e) => {
-            e.stopPropagation();
-            onFeature!(t.id);
-          }}
-        >
-          Read the full story <span aria-hidden="true">→</span>
-        </button>
-      )}
     </div>
   );
 }
 
 type TestimonialsSectionProps = {
-  /** "full" = featured pull-quote + 3-col grid + trust strip. "compact" = 2-card grid only. */
-  variant?: "full" | "compact";
   heading: React.ReactNode;
   headingStyle?: React.CSSProperties;
   background?: string;
 };
 
 export default function TestimonialsSection({
-  variant = "full",
   heading,
   headingStyle,
   background = "#F1EBDE",
 }: TestimonialsSectionProps) {
-  const [featuredId, setFeaturedId] = useState(testimonials[0].id);
-  const [previousFeaturedId, setPreviousFeaturedId] = useState<string | null>(null);
-
-  const handleFeature = (id: string) => {
-    if (id === featuredId) return;
-    setPreviousFeaturedId(featuredId);
-    setFeaturedId(id);
+  const [current, setCurrent] = useState(0);
+  // Slides share one track height, so an open full testimonial would stretch
+  // every slide. Moving to another slide closes it.
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const count = testimonials.length;
+  const go = (i: number) => {
+    setCurrent(Math.min(Math.max(i, 0), count - 1));
+    setExpandedId(null);
   };
+  const next = () => go(current + 1);
+  const prev = () => go(current - 1);
 
-  const featured =
-    variant === "full" ? testimonials.find((t) => t.id === featuredId) ?? testimonials[0] : null;
-  const gridItems =
-    variant === "full" ? testimonials.filter((t) => t.id !== featuredId) : testimonials.slice(0, 2);
-  const gridBaseDelay = featured ? 220 : 120;
+  // Horizontal swipe on touch screens; ignores mostly-vertical drags so the page still scrolls.
+  const touch = useRef<{ x: number; y: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!touch.current) return;
+    const dx = e.changedTouches[0].clientX - touch.current.x;
+    const dy = e.changedTouches[0].clientY - touch.current.y;
+    touch.current = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) next();
+    else prev();
+  };
 
   return (
     <section
+      id="testimonials"
       className="testimonials-section"
       style={{ background, borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}
     >
       <div className="max-w-site">
         <AnimateIn>
-          <h2 style={{ marginBottom: variant === "full" ? 48 : 36, maxWidth: 640, ...headingStyle }}>
-            {heading}
-          </h2>
+          <h2 style={{ marginBottom: 48, maxWidth: 640, ...headingStyle }}>{heading}</h2>
         </AnimateIn>
 
-        {featured && (
-          <AnimateIn delay={120}>
-            <div className="testimonials-featured">
-              <span className="testimonials-featured-mark" aria-hidden="true">&ldquo;</span>
-              <div key={featured.id} className="testimonials-featured-content">
-                <p className="testimonials-featured-quote">{featured.quote}</p>
-                <div className="testimonials-featured-person">
-                  <Avatar
-                    initials={featured.initials}
-                    avatarUrl={featured.avatarUrl}
-                    name={featured.name}
-                    size={68}
-                  />
-                  <div>
-                    <div className="testimonials-featured-name-row">
-                      <span className="testimonials-featured-name">{featured.name}</span>
-                      {featured.linkedinUrl && !featured.linkedinUrl.startsWith("[") && (
-                        <span
-                          className="testimonials-linkedin-btn testimonials-linkedin-btn-inert"
-                          aria-label={`${featured.name} on LinkedIn`}
-                        >
-                          <LinkedInIcon size={15} />
-                        </span>
-                      )}
-                    </div>
-                    <div className="testimonials-featured-role">
-                      <span>{featured.roleLine}</span>
-                      {featured.fullCompany && (
-                        <span className="testimonials-featured-company">{featured.fullCompany}</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <AnimateIn delay={120}>
+          <div
+            className="tcar"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Client testimonials"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight") next();
+              if (e.key === "ArrowLeft") prev();
+            }}
+          >
+            <div className="tcar-track" style={{ transform: `translateX(-${current * 100}%)` }}>
+              {testimonials.map((t, i) => (
+                <Slide
+                  key={t.id}
+                  t={t}
+                  active={i === current}
+                  expanded={expandedId === t.id}
+                  onToggle={() => setExpandedId((id) => (id === t.id ? null : t.id))}
+                />
+              ))}
             </div>
-          </AnimateIn>
-        )}
 
-        <div className={`testimonials-grid${variant === "compact" ? " compact" : ""}`}>
-          {gridItems.map((t, i) => (
-            <AnimateIn key={t.id} delay={gridBaseDelay + i * 80} className="testimonials-card-animate">
-              <TestimonialCard
-                t={t}
-                onFeature={variant === "full" ? handleFeature : undefined}
-                isRecent={variant === "full" && t.id === previousFeaturedId}
-              />
-            </AnimateIn>
-          ))}
-        </div>
+            <button
+              type="button"
+              className="tcar-arrow tcar-arrow-prev"
+              onClick={prev}
+              disabled={current === 0}
+              aria-label="Previous testimonial"
+            >
+              <Chevron dir="left" />
+            </button>
+            <button
+              type="button"
+              className="tcar-arrow tcar-arrow-next"
+              onClick={next}
+              disabled={current === count - 1}
+              aria-label="Next testimonial"
+            >
+              <Chevron dir="right" />
+            </button>
+          </div>
 
+          {/* Face row: shows at a glance who vouches, and jumps straight to that story. */}
+          <div className="tcar-faces" role="tablist" aria-label="Choose a testimonial">
+            {testimonials.map((t, i) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={i === current}
+                onClick={() => go(i)}
+                className={`tcar-face${i === current ? " is-active" : ""}`}
+              >
+                <span className="tcar-face-avatar" style={{ background: t.accent }}>
+                  {t.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={t.image} alt="" />
+                  ) : (
+                    t.initials
+                  )}
+                </span>
+                <span className="tcar-face-text">
+                  <span className="tcar-face-name">{t.name}</span>
+                  <span className="tcar-face-company">{t.company}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </AnimateIn>
       </div>
     </section>
   );
