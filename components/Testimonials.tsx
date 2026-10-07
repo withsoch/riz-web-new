@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
 
 export type Testimonial = {
@@ -160,17 +160,7 @@ function SlidePhoto({ t }: { t: Testimonial }) {
   );
 }
 
-function Slide({
-  t,
-  active,
-  expanded,
-  onToggle,
-}: {
-  t: Testimonial;
-  active: boolean;
-  expanded: boolean;
-  onToggle: () => void;
-}) {
+function Slide({ t, active, onOpen }: { t: Testimonial; active: boolean; onOpen: () => void }) {
   return (
     <div
       className="tcar-slide"
@@ -206,30 +196,76 @@ function Slide({
         ) : null}
 
         <div className="tcar-quote-block">
-          {expanded && t.fullQuote ? (
-            <div className="tcar-full-quote">
-              {t.fullQuote.map((p, i) => (
-                <p key={i}>
-                  {i === 0 && "“"}
-                  {p}
-                  {i === t.fullQuote!.length - 1 && "”"}
-                </p>
-              ))}
-            </div>
-          ) : (
-            <blockquote className="tcar-quote">&ldquo;{t.quote}&rdquo;</blockquote>
-          )}
+          <blockquote className="tcar-quote">&ldquo;{t.quote}&rdquo;</blockquote>
           <p className="tcar-author">
             {t.name}, <span>{t.roleLine}</span>
           </p>
           {t.fullQuote && (
-            <button type="button" className="tcar-readmore" aria-expanded={expanded} onClick={onToggle}>
-              {expanded ? "Show less" : "Read the full testimonial"} <span aria-hidden="true">{expanded ? "↑" : "→"}</span>
+            <button type="button" className="tcar-readmore" aria-haspopup="dialog" onClick={onOpen}>
+              Read the full testimonial <span aria-hidden="true">→</span>
             </button>
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * The full testimonial in a reading panel over the page, so the card keeps
+ * its size. Native <dialog>: Esc, the close button or a click on the
+ * backdrop closes it, and focus returns to the button that opened it.
+ */
+function TestimonialDialog({ t, onClose }: { t: Testimonial | null; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    if (t && !d.open) d.showModal();
+    if (!t && d.open) d.close();
+  }, [t]);
+
+  return (
+    <dialog
+      ref={ref}
+      className="tdialog"
+      aria-labelledby="tdialog-name"
+      onClose={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      {t && (
+        <div className="tdialog-inner">
+          <div className="tdialog-head">
+            <span className="tdialog-avatar" style={{ background: t.accent }}>
+              {t.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={t.image} alt="" />
+              ) : (
+                t.initials
+              )}
+            </span>
+            <div className="tdialog-who">
+              <span id="tdialog-name" className="tdialog-name">{t.name}</span>
+              <span className="tdialog-role">{t.roleLine}</span>
+            </div>
+            <button type="button" className="tdialog-close" onClick={onClose} aria-label="Close">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                <path strokeLinecap="round" d="M5 5l10 10M15 5L5 15" />
+              </svg>
+            </button>
+          </div>
+          <div className="tdialog-body">
+            <span className="tdialog-mark" aria-hidden="true">&ldquo;</span>
+            {(t.fullQuote ?? [t.quote]).map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </div>
+      )}
+    </dialog>
   );
 }
 
@@ -242,17 +278,12 @@ type TestimonialsSectionProps = {
 export default function TestimonialsSection({
   heading,
   headingStyle,
-  background = "#F1EBDE",
+  background = "#fff",
 }: TestimonialsSectionProps) {
   const [current, setCurrent] = useState(0);
-  // Slides share one track height, so an open full testimonial would stretch
-  // every slide. Moving to another slide closes it.
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
   const count = testimonials.length;
-  const go = (i: number) => {
-    setCurrent(Math.min(Math.max(i, 0), count - 1));
-    setExpandedId(null);
-  };
+  const go = (i: number) => setCurrent(Math.min(Math.max(i, 0), count - 1));
   const next = () => go(current + 1);
   const prev = () => go(current - 1);
 
@@ -279,7 +310,7 @@ export default function TestimonialsSection({
     >
       <div className="max-w-site">
         <AnimateIn>
-          <h2 style={{ marginBottom: 48, maxWidth: 640, ...headingStyle }}>{heading}</h2>
+          <h2 style={{ marginBottom: 32, maxWidth: 640, ...headingStyle }}>{heading}</h2>
         </AnimateIn>
 
         <AnimateIn delay={120}>
@@ -301,8 +332,7 @@ export default function TestimonialsSection({
                   key={t.id}
                   t={t}
                   active={i === current}
-                  expanded={expandedId === t.id}
-                  onToggle={() => setExpandedId((id) => (id === t.id ? null : t.id))}
+                  onOpen={() => setOpenId(t.id)}
                 />
               ))}
             </div>
@@ -355,6 +385,8 @@ export default function TestimonialsSection({
           </div>
         </AnimateIn>
       </div>
+
+      <TestimonialDialog t={testimonials.find((t) => t.id === openId) ?? null} onClose={() => setOpenId(null)} />
     </section>
   );
 }

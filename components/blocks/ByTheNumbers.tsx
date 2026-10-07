@@ -151,12 +151,20 @@ export default function ByTheNumbers() {
                   className={`bnum-tl-node${s.status === "Ongoing" ? " is-live" : ""}`}
                   aria-hidden="true"
                 />
-                {LOGOS[s.company] ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className="bnum-tl-logo" src={LOGOS[s.company]} alt={s.company} />
-                ) : (
-                  <span className="bnum-tl-name">{s.company}</span>
-                )}
+                {/* fixed-width slot, so the years line up whatever the mark's width */}
+                <span className="bnum-tl-mark">
+                  {LOGOS[s.company] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="bnum-tl-logo"
+                      data-logo={s.company.toLowerCase()}
+                      src={LOGOS[s.company]}
+                      alt={s.company}
+                    />
+                  ) : (
+                    <span className="bnum-tl-name">{s.company}</span>
+                  )}
+                </span>
                 <span className="bnum-tl-year">{s.when}</span>
               </div>
             ))}

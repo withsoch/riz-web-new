@@ -1332,7 +1332,7 @@ html {
 /* ─── Testimonials (carousel, after withsocialcatalyst.com) ────────── */
 
 .testimonials-section {
-  padding: var(--section-pad) 0;
+  padding: 72px 0;
 }
 
 .tcar {
@@ -1360,7 +1360,7 @@ html {
 /* Left: photo panel */
 .tcar-photo {
   position: relative;
-  min-height: 28rem;
+  min-height: 22rem;
   overflow: hidden;
 }
 
@@ -1423,8 +1423,8 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
-  padding: 40px 80px 40px 40px;
+  gap: 20px;
+  padding: 32px 80px 32px 40px;
 }
 
 .tcar-eyebrow {
@@ -1495,29 +1495,6 @@ html {
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--body);
-}
-
-.tcar-full-quote {
-  max-height: 22rem;
-  overflow-y: auto;
-  padding-right: 8px;
-  animation: tcarFadeIn 280ms ease;
-}
-
-.tcar-full-quote p {
-  margin: 0 0 14px;
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: var(--body);
-}
-
-.tcar-full-quote p:last-child {
-  margin-bottom: 0;
-}
-
-@keyframes tcarFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .tcar-author {
@@ -1602,7 +1579,7 @@ html {
   padding: 10px 14px 10px 10px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--paper-light);
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -1611,6 +1588,7 @@ html {
 
 .tcar-face:hover {
   background: #fff;
+  border-color: var(--line-2);
   transform: translateY(-1px);
 }
 
@@ -1632,15 +1610,6 @@ html {
   color: #fff;
   font-size: 14px;
   font-weight: 700;
-  filter: grayscale(0.6);
-  opacity: 0.8;
-  transition: filter 0.25s ease, opacity 0.25s ease;
-}
-
-.tcar-face:hover .tcar-face-avatar,
-.tcar-face.is-active .tcar-face-avatar {
-  filter: none;
-  opacity: 1;
 }
 
 .tcar-face-avatar img {
@@ -1666,12 +1635,155 @@ html {
 .tcar-face-name {
   font-size: 14px;
   font-weight: 600;
+  color: var(--ink2);
+  transition: color 0.25s ease;
+}
+
+.tcar-face.is-active .tcar-face-name,
+.tcar-face:hover .tcar-face-name {
   color: var(--ink);
 }
 
 .tcar-face-company {
   font-size: 12px;
   color: var(--muted);
+}
+
+/* Full-testimonial reading panel (native <dialog>) */
+.tdialog {
+  width: min(44rem, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: #fff;
+  color: var(--body);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.35);
+}
+
+.tdialog[open] {
+  animation: tdialogIn 260ms var(--ease);
+}
+
+.tdialog::backdrop {
+  background: rgba(34, 51, 44, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.tdialog[open]::backdrop {
+  animation: tdialogFade 260ms ease;
+}
+
+@keyframes tdialogIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes tdialogFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+html:has(.tdialog[open]) {
+  overflow: hidden;
+}
+
+.tdialog-inner {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 48px);
+}
+
+.tdialog-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tdialog-avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+}
+
+.tdialog-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.tdialog-who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tdialog-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tdialog-role {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.tdialog-close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tdialog-close:hover {
+  background: var(--coral);
+  color: #fff;
+}
+
+.tdialog-body {
+  overflow-y: auto;
+  padding: 24px 32px 32px;
+}
+
+.tdialog-mark {
+  display: block;
+  height: 32px;
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 0.9;
+  color: var(--coral);
+}
+
+.tdialog-body p {
+  margin: 16px 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .tdialog-head { padding: 16px; }
+  .tdialog-body { padding: 16px 20px 24px; }
 }
 
 @media (max-width: 1023px) {
@@ -1701,7 +1813,7 @@ html {
 
 @media (max-width: 640px) {
   .testimonials-section {
-    padding: 64px 0;
+    padding: 48px 0;
   }
   .tcar-body {
     padding: 24px 20px 28px;
@@ -1711,20 +1823,16 @@ html {
     right: 20px;
     bottom: 20px;
   }
-  .tcar-full-quote {
-    max-height: none;
-    overflow: visible;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .tcar-track,
   .tcar-face,
-  .tcar-face-avatar,
   .tcar-arrow {
     transition: none !important;
   }
-  .tcar-full-quote {
+  .tdialog[open],
+  .tdialog[open]::backdrop {
     animation: none !important;
   }
 }
@@ -2157,7 +2265,7 @@ html {
 }
 .bnum-tl-row {
   display: flex; align-items: center; gap: 0.875rem;
-  margin-bottom: 1.15rem; opacity: 0;
+  min-height: 36px; margin-bottom: 1.15rem; opacity: 0;
 }
 .bnum-tl-row:last-child { margin-bottom: 0; }
 .bnum[data-seen="true"] .bnum-tl-row {
@@ -2185,14 +2293,19 @@ html {
   0%, 100% { box-shadow: 0 0 0 5px rgba(255,92,53,0.18); }
   50%      { box-shadow: 0 0 0 11px rgba(255,92,53,0.06); }
 }
-.bnum-tl-logo { height: 44px; max-width: 104px; width: auto; object-fit: contain; }
+.bnum-tl-mark { flex: 0 0 112px; display: flex; align-items: center; }
+/* Logos are sized by eye to sit at the weight of the set names: the wide
+   wordmarks by width, Bolt (a tall mark) by height. */
+.bnum-tl-logo { display: block; height: auto; width: 96px; }
+.bnum-tl-logo[data-logo="bolt"] { width: auto; height: 34px; }
 .bnum-tl-name {
   font-family: var(--font-inter-tight), sans-serif;
   font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: #22332C;
 }
 .bnum-tl-year {
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 0.875rem; font-weight: 500; color: #5C5750; margin-left: 0.45rem;
+  font-size: 0.875rem; font-weight: 500; color: #5C5750;
+  font-variant-numeric: tabular-nums;
 }
 .bnum-lede {
   font-family: var(--font-fraunces), serif;
@@ -2204,7 +2317,7 @@ html {
 .bnum-head,
 .bnum-row {
   display: grid;
-  grid-template-columns: 78px 116px minmax(0, 1fr) auto minmax(150px, 172px);
+  grid-template-columns: 78px 116px minmax(0, 1fr) 98px minmax(150px, 172px);
   align-items: center;
   gap: 0;
 }
@@ -2269,7 +2382,7 @@ html {
 
 @media (max-width: 1279px) {
   .bnum-head, .bnum-row {
-    grid-template-columns: 70px 104px minmax(0, 1fr) auto minmax(126px, 140px);
+    grid-template-columns: 70px 104px minmax(0, 1fr) 90px minmax(126px, 140px);
   }
   .bnum-head > span, .bnum-row > span { padding: 0 10px; }
   .bnum-read { font-size: 25px; }
@@ -2279,7 +2392,7 @@ html {
   .bnum-grid { grid-template-columns: 1fr; gap: 40px; }
   .bnum-left { padding-right: 0; }
   .bnum-head, .bnum-row {
-    grid-template-columns: 78px 116px minmax(0, 1fr) auto minmax(150px, 172px);
+    grid-template-columns: 78px 116px minmax(0, 1fr) 98px minmax(150px, 172px);
   }
   .bnum-read { font-size: 30px; }
 }
